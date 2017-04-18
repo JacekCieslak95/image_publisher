@@ -203,4 +203,3 @@ target_link_libraries(image_publisher_node
 
 ## Add folders to be run by python nosetests
 # catkin_add_nosetests(test)
-

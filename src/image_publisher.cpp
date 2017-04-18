@@ -20,7 +20,6 @@ int main(int argc, char** argv)
 
 //otworzenie kamery 0, cap chyba jest uchwytem do niej
 	cv::VideoCapture cap(CV_CAP_ANY);
-
 //sprawdzanie, czy otwarte, ewentualna komunikacja o błędzie
 	if(!cap.isOpened())
 	{
@@ -32,17 +31,18 @@ int main(int argc, char** argv)
 
 	std::cout << "Frame size: " << dWidth << " x " << dHeight << std::endl;
 //Tworzenie okna do wyświetlenia obrazu
-	cv::namedWindow("MyVideo", CV_WINDOW_AUTOSIZE);
+	//cv::namedWindow("Original video", CV_WINDOW_AUTOSIZE);
 //frame jest typem Mat - wielowymiarowa macierz przechowująca obraz
 	cv::Mat frame;
 //msg jest "ramką" wiadomości. To do niej zapisuję wszystko wysyłane do topicu i to ją publikuję
 	sensor_msgs::ImagePtr msg;
 	ros::Rate loop_rate(5);
 //pętla działająca do zamknięcia
+	std::cout<<"starts publishing image!"<<std::endl;
 	while (nh.ok()) {
 //zapisanie danych z kamery do macierzy "frame", wyświetlenie tego na ekranie w oknie My video
 		cap >> frame;
-		cv::imshow( "My video", frame );
+	//	cv::imshow( "My video", frame );
 // Jeśli przejęta ramka nie jest pusta - opublikowanie jej
 		if(!frame.empty()) {
 			msg = cv_bridge::CvImage(std_msgs::Header(), "bgr8", frame).toImageMsg();
